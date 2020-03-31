@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Blog.Core.Controllers
 {
@@ -62,6 +66,28 @@ namespace Blog.Core.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        public ActionResult GetToken()
+        {
+            var claim = new Claim[] {
+                new Claim(ClaimTypes.Name,"hc"),
+                new Claim(JwtRegisteredClaimNames.Email,"951870319@qq.com"),
+                new Claim(JwtRegisteredClaimNames.Sub,"1")
+            };
+
+            //至少16位的密钥
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("projHC236630ectcore"));
+
+            var token = new JwtSecurityToken(
+                issuer: "",
+                audience: ""
+                );
+
+            return Ok(new
+            {
+
+            });
         }
     }
 }
