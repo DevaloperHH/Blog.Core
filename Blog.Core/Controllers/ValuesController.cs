@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Core.AuthHelper.OverWrite;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Core.Controllers
@@ -62,6 +63,24 @@ namespace Blog.Core.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        /// <summary>
+        /// 获取令牌
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
+        public async Task<object> GetJwtStr(string name, string pass)
+        {
+            TokenModelJwt token = new TokenModelJwt() { Uid = 1, Role = "Admin" };
+            var jwtStr = JwtHelper.IssueJwt(token);
+
+            return Ok(new
+            {
+                success = true,
+                token = jwtStr
+            });
         }
     }
 }
